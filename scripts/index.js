@@ -4,7 +4,6 @@ const cardTemplate = document.querySelector("#card-template").content;
 // @todo: DOM узлы
 const content = document.querySelector(".content");
 const plecesList = content.querySelector(".places__list");
-const profileAddButton = content.querySelector(".profile__add-button");
 // @todo: Функция создания карточки
 function createCard(card, onDelete) {
   const cardElement = cardTemplate
