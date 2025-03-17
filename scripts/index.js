@@ -1,32 +1,40 @@
 // @todo: Темплейт карточки
-const cardTemplate = document.querySelector('#card-template').content;
+const cardTemplate = document.querySelector("#card-template").content;
 
 // @todo: DOM узлы
-const content = document.querySelector('.content');
-const plecesList = content.querySelector('.places__list');
-const profileAddButton = content.querySelector('.profile__add-button');
+const content = document.querySelector(".content");
+const plecesList = content.querySelector(".places__list");
+const profileAddButton = content.querySelector(".profile__add-button");
 // @todo: Функция создания карточки
-function createCard(initialCards) {
-  initialCards.forEach(function(element) {
-    const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
-    const cardTitle = cardElement.querySelector('.card__title');
-    const cardImage = cardElement.querySelector('.card__image');
-    const cardDeleteButton = cardElement.querySelector('.card__delete-button');
- 
-    cardTitle.textContent = element.name;
-    cardImage.src = element.link;
+function createCard(card, onDelete) {
+  const cardElement = cardTemplate
+    .querySelector(".places__item")
+    .cloneNode(true);
+  const cardTitle = cardElement.querySelector(".card__title");
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardDeleteButton = cardElement.querySelector(".card__delete-button");
 
-    cardDeleteButton.addEventListener('click', deleteCard)
+  cardTitle.textContent = card.name;
+  cardImage.src = card.link;
+  cardImage.alt = card.name;
 
-    plecesList.append(cardElement);
-})
+  cardDeleteButton.addEventListener("click", onDelete);
+
+  return cardElement;
 }
+
 // @todo: Функция удаления карточки
 function deleteCard(evt) {
-  const cardDelete = evt.target.closest('.places__item');
-    cardDelete.remove();
+  const cardDelete = evt.target.closest(".places__item");
+  cardDelete.remove();
 }
-// @todo: Вывести карточки на страницу
-profileAddButton.addEventListener('click', function () {
-  createCard(initialCards);
+
+// @todo: функция вставки карточки на страницу
+function renderCard(cardElement, plecesList) {
+  plecesList.append(cardElement);
+}
+
+//задача вывести все карточки на страницу
+initialCards.forEach((card) => {
+  renderCard(createCard(card, deleteCard), plecesList);
 });
