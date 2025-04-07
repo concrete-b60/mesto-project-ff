@@ -1,8 +1,6 @@
 import {
 	createCard,
 	deleteCard,
-	popupImage,
-	renderCard,
 	toggleLike,
 } from './components/card';
 import { initialCards } from './components/cards';
@@ -29,11 +27,14 @@ const jobInput = formElement.querySelector('.popup__input_type_description');
 const formNewPlace = document.querySelector('form[name="new-place"]');
 const placeName = formNewPlace.querySelector('.popup__input_type_card-name');
 const link = formNewPlace.querySelector('.popup__input_type_url');
+const popupTypeImage = document.querySelector('.popup_type_image');
+const popupImage = popupTypeImage.querySelector('.popup__image');
+const popupCaption = popupTypeImage.querySelector('.popup__caption');
 
 //задача вывести все карточки на страницу
 initialCards.forEach(card => {
 	renderCard(
-		createCard(card, deleteCard, cardTemplate, toggleLike, popupImage),
+		createCard(card, deleteCard, cardTemplate, toggleLike, openPopupImage),
 		placesList
 	);
 });
@@ -83,7 +84,7 @@ function handleFormNewPlace(evt) {
 		deleteCard,
 		cardTemplate,
 		toggleLike,
-		popupImage
+		openPopupImage
 	);
 	placesList.prepend(newCard);
 
@@ -93,3 +94,16 @@ function handleFormNewPlace(evt) {
 }
 
 formNewPlace.addEventListener('submit', handleFormNewPlace);
+
+// @todo: функция вставки карточки на страницу
+function renderCard(cardElement, placesList) {
+	placesList.append(cardElement);
+}
+
+function openPopupImage(card) {
+	popupImage.src = card.link;
+	popupImage.alt = card.name;
+	popupCaption.textContent = card.name;
+
+	openModal(popupTypeImage);
+}
