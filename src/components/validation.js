@@ -15,6 +15,7 @@ function hideInputError(popupElement, inputElement, validationConfig) {
 	inputElement.classList.remove(validationConfig.inputErrorClass);
 	errorElement.classList.remove(validationConfig.errorClass);
 	errorElement.textContent = '';
+	inputElement.setCustomValidity('');
 }
 
 function isValid(popupElement, inputElement, validationConfig) {
